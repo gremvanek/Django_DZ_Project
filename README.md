@@ -11,7 +11,7 @@ Copy code
 1. Склонируйте репозиторий:
 
     ```bash
-    git clone [https://github.com/gremvanek/Django_DZ_Project.git]
+    git clone https://github.com/gremvanek/Django_DZ_Project.git
     ```
 
 2. Установите зависимости:
