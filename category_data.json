@@ -1,0 +1,26 @@
+[
+  {
+    "model": "config.category",
+    "pk": "1",
+    "fields": {
+      "name": "Еда",
+      "description": "Продукты питания"
+    }
+  },
+  {
+    "model": "config.category",
+    "pk": "2",
+    "fields": {
+      "name": "Электроника",
+      "description": "Различные электронные приборы"
+    }
+  },
+  {
+    "model": "config.category",
+    "pk": "3",
+    "fields": {
+      "name": "Хозтовары",
+      "description": "Различная бытовая химия"
+    }
+  }
+]

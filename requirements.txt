@@ -1,2 +1,5 @@
 Django==3.2.24
 django-bootstrap4==24.1
+ipython==8.22.2
+psycopg2-binary==2.9.9
+pillow==10.2.0

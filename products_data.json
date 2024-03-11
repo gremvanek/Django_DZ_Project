@@ -1,0 +1,32 @@
+[
+  {
+    "pk": "1",
+    "name": "Колбаса",
+    "price": "10.00",
+    "description": "Дешевая колбаса. В составе 80% бумага",
+    "category": "1",
+    "photo": null,
+    "created_at": "2024-03-04",
+    "updated_at": "2024-03-07"
+  },
+  {
+    "pk": "2",
+    "name": "Yota-phone",
+    "price": "100000.00",
+    "description": "Неоправданно высокая цена для такого телефона.",
+    "category": "2",
+    "photo": null,
+    "created_at": "2024-03-04",
+    "updated_at": "2024-03-07"
+  },
+  {
+    "pk": "3",
+    "name": "Bleach",
+    "price": "100.00",
+    "description": "Отбеливатель. Что удивительно название одного очень известного аниме.",
+    "category": "3",
+    "photo": null,
+    "created_at": "2024-03-02",
+    "updated_at": "2024-03-07"
+  }
+]
