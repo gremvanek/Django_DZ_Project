@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-lg-6">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Изменить запись</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if post.pk %}
+                <div class="mb-3">
+                    <label for="title" class="form-label">Заголовок</label>
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Заголовок записи"
+                           value="{{ post.title }}" required>
+                </div>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="content" class="form-label">Содержимое</label>
+                    <textarea name="content" class="form-control" id="content" placeholder="Содержимое записи" required>{{ post.content }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="preview" class="form-label">Превью (изображение)</label>
+                    <input type="file" name="preview" class="form-control" id="preview">
+                </div>
+                <div class="mb-3">
+                    <label for="is_published" class="form-label">Опубликовать?</label>
+                    <select name="is_published" class="form-control" id="is_published">
+                        <option value="true" {% if post.is_published %}selected{% endif %}>Да</option>
+                        <option value="false" {% if not post.is_published %}selected{% endif %}>Нет</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Применить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
