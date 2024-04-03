@@ -1,5 +1,7 @@
 import json
+import os
 
+import django
 from django.core.management import BaseCommand
 
 from config.models import Category, Product
@@ -20,6 +22,9 @@ class Command(BaseCommand):
         return products_data
 
     def handle(self, *args, **options):
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dz_django.settings')
+        django.setup()
+
         # Удаляем все продукты
         Product.objects.all().delete()
         # Удаляем все категории
@@ -30,7 +35,7 @@ class Command(BaseCommand):
         category_for_create = []
 
         # Создаем категории
-        for category_data in Command.json_read_categories():
+        for category_data in self.json_read_categories():
             category_for_create.append(
                 Category(
                     id=category_data['pk'],
@@ -42,7 +47,7 @@ class Command(BaseCommand):
         Category.objects.bulk_create(category_for_create)
 
         # Создаем продукты
-        for product_data in Command.json_read_products():
+        for product_data in self.json_read_products():
             category_id = product_data.pop('category')
             category = Category.objects.get(id=category_id)
             product_for_create.append(

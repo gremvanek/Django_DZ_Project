@@ -15,15 +15,8 @@
                     <p class="text-start m-3">{{ product.description|truncatechars:100 }}</p>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
                     <a href="{% url 'product_detail' pk=product.pk %}" class="btn btn-lg btn-block btn-outline-primary">
-                        Подробней</a>
-                    <h4 class="my-4 font-weight-normal">
-                    {% if product.active_version %}
-                    <a>Текущая версия: {{ product.active_version.version_number }} ({{
-                        product.active_version.version_name }})</a>
-                    {% else %}
-                    <a>Нет активной версии</a>
-                    {% endif %}
-                    </h4>
+                        Подробней
+                    </a>
                 </div>
             </div>
         </div>
@@ -33,7 +26,5 @@
         {% endif %}
     </div>
 </div>
-</div>
 <div class="pt-4 my-md-5 pt-md-5 border-top">{% include 'base_contacts.html' %}</div>
-</div>
 {% endblock %}

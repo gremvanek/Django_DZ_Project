@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.text import slugify
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -47,7 +46,7 @@ class Post(models.Model):
     slug = models.CharField(max_length=200, unique=True, verbose_name='Slug')
     content = models.TextField(verbose_name='Содержимое')
     preview = models.ImageField(upload_to='posts/%Y/%m/%d/', verbose_name='Превью', blank=True, null=True)
-    created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     views = models.IntegerField(default=0, verbose_name='Количество просмотров')
 
@@ -55,9 +54,21 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'slug': self.slug})
+        return reverse('post_list', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ['-created_at']
         verbose_name = 'Блоговая запись'
         verbose_name_plural = 'Блоговые записи'
+
+    def increment_views(self):
+        self.views += 1
+        self.save()
+        return self.views
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    version_number = models.CharField(max_length=50)
+    version_name = models.CharField(max_length=100)
+    is_current = models.BooleanField(default=False)

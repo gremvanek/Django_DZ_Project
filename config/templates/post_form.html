@@ -1,21 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="col-lg-6">
+<div class="col-xl-">
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Изменить запись</h4>
+            <h4 class="my-0 font-weight-normal">{{ post.title }}</h4>
         </div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {% if post.pk %}
                 <div class="mb-3">
                     <label for="title" class="form-label">Заголовок</label>
                     <input type="text" name="title" class="form-control" id="title" placeholder="Заголовок записи"
                            value="{{ post.title }}" required>
                 </div>
-                {% endif %}
                 <div class="mb-3">
                     <label for="content" class="form-label">Содержимое</label>
                     <textarea name="content" class="form-control" id="content" placeholder="Содержимое записи" required>{{ post.content }}</textarea>
@@ -31,7 +29,11 @@
                         <option value="false" {% if not post.is_published %}selected{% endif %}>Нет</option>
                     </select>
                 </div>
+                {% if not post.pk %} {# Проверяем, создается ли новый пост #}
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Ок</button>
+                {% else %}
                 <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Применить</button>
+                {% endif %}
             </form>
         </div>
     </div>

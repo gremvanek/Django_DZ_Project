@@ -2,7 +2,7 @@
 <div class="col-xl-">
     <div class="card mb-4 box-shadow">
         <div class="card-header">
-            <h4 class="my-0 font-weight-normal">{{ post.title }}</h4>
+            <h4 class="my-0 font-weight-normal">{{ post.title }}</h4> {# Используем модель Post #}
         </div>
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
@@ -10,11 +10,11 @@
                 <div class="mb-3">
                     <label for="title" class="form-label">Заголовок</label>
                     <input type="text" name="title" class="form-control" id="title" placeholder="Заголовок записи"
-                           value="{{ post.title }}" required>
+                           value="{{ post.title }}" required> {# Используем модель Post #}
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">Содержимое</label>
-                    <textarea name="content" class="form-control" id="content" placeholder="Содержимое записи" required>{{ post.content }}</textarea>
+                    <textarea name="content" class="form-control" id="content" placeholder="Содержимое записи" required>{{ post.content }}</textarea> {# Используем модель Post #}
                 </div>
                 <div class="mb-3">
                     <label for="preview" class="form-label">Превью (изображение)</label>

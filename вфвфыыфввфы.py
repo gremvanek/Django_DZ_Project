@@ -125,15 +125,6 @@ class PostDeleteView(DeleteView):
 class ProductListView(ListView):
     model = Product
     template_name = 'product_list.html'
-    context_object_name = 'products'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        products = context['products']
-        for product in products:
-            active_version = product.version_set.filter(is_current=True).first()
-            product.active_version = active_version
-        return context
 
 
 class ProductDetailView(DetailView):
@@ -145,13 +136,6 @@ class ProductDetailView(DetailView):
         obj.views += 1
         obj.save()
         return obj
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        product = context['object']
-        active_version = product.version_set.filter(is_current=True).first()
-        product.active_version = active_version
-        return context
 
 
 class ProductCreateView(CreateView):

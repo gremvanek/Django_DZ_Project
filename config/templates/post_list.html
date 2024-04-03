@@ -33,37 +33,4 @@
         </div>
     </div>
 </div>
-
-<!--<div class="accordion mt-4" id="accordionUnpublished">-->
-<!--    <div class="accordion-item">-->
-<!--        <h2 class="accordion-header" id="headingUnpublished">-->
-<!--            <button class="accordion-button" type="button" data-bs-toggle="collapse"-->
-<!--                    data-bs-target="#collapseUnpublished" aria-expanded="false" aria-controls="collapseUnpublished">-->
-<!--                Неопубликованные статьи-->
-<!--            </button>-->
-<!--        </h2>-->
-<!--        <div id="collapseUnpublished" class="accordion-collapse collapse" aria-labelledby="headingUnpublished"-->
-<!--             data-bs-parent="#accordionUnpublished">-->
-<!--            <div class="accordion-body">-->
-<!--                <div class="row">-->
-<!--                    {% for post in posts.1 %}-->
-<!--                    <div class="col-lg-4 col-md-6 mb-4">-->
-<!--                        <div class="card h-100">-->
-<!--                            <div class="card-body">-->
-<!--                                <h5 class="card-title">{{ post.title }}</h5>-->
-<!--                                <p class="card-text">{{ post.content|truncatechars:100 }}</p>-->
-<!--                            </div>-->
-<!--                            <div class="card-footer">-->
-<!--                                <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Подробнее</a>-->
-<!--                                <a href="{% url 'post_update' post.slug %}" class="btn btn-info">Изменить</a>-->
-<!--                                <a href="{% url 'post_delete' post.slug %}" class="btn btn-danger">Удалить</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    {% endfor %}-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 {% endblock %}
