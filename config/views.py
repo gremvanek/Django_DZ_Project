@@ -6,14 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic import TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import ProductForm
-from .models import Product, Post  # Обратите внимание, что здесь я изменяю импорт моделей
-
-
-def home(request):
-    products = Product.objects.all()
-    context = {'object_list': products}
-    return render(request, 'home.html', context)
+from .forms import ProductForm, VersionForm
+from .models import Product, Post, Version
 
 
 class ContactView(TemplateView):
@@ -51,8 +45,7 @@ class PostView(TemplateView):
 class PostListView(ListView):
     model = Post
     template_name = 'post_list.html'
-
-    # context_object_name = 'object_list'  # Изменил context_object_name на 'object_list', чтобы избежать конфликта имен
+    context_object_name = 'object_list'  # Изменил context_object_name на 'object_list', чтобы избежать конфликта имен
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -125,12 +118,11 @@ class PostDeleteView(DeleteView):
 class ProductListView(ListView):
     model = Product
     template_name = 'product_list.html'
-    context_object_name = 'products'
+    context_object_name = 'object_list'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        products = context['products']
-        for product in products:
+        for product in context['object_list']:
             active_version = product.version_set.filter(is_current=True).first()
             product.active_version = active_version
         return context
@@ -139,6 +131,7 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'product_details.html'
+    context_object_name = 'product'
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
@@ -148,9 +141,9 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        product = context['object']
+        product = self.object
         active_version = product.version_set.filter(is_current=True).first()
-        product.active_version = active_version
+        context['active_version'] = active_version
         return context
 
 
@@ -175,3 +168,67 @@ class ProductDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('product_list')
+
+
+class VersionListView(ListView):
+    model = Version
+    template_name = 'version_list.html'
+    context_object_name = 'versions'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Получение первого объекта Product
+        product = Product.objects.first()
+
+        # Если product не равен None, получаем идентификатор продукта (product_id)
+        if product:
+            product_id = product.pk
+        else:
+            product_id = None
+
+        # Добавление идентификатора продукта в контекст
+        context['product_id'] = product_id
+
+        return context
+
+
+class VersionDetailView(DetailView):
+    model = Version
+    template_name = 'version_detail.html'
+    context_object_name = 'versions'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product_id'] = kwargs['product_id']
+        return context
+
+
+class VersionCreateView(CreateView):
+    model = Version
+    fields = ['product', 'version_number', 'version_name', 'is_current']
+    template_name = 'version_form.html'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['product'] = self.kwargs['product_id']
+        return initial
+
+
+class VersionUpdateView(UpdateView):
+    model = Version
+    form_class = VersionForm
+    fields = ['product', 'version_number', 'version_name', 'is_current']
+    template_name = 'version_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('versions')
+
+
+class VersionDeleteView(DeleteView):
+    model = Version
+    template_name = 'version_confirm_delete.html'
+    success_url = reverse_lazy('version_list')
+
+    def get_success_url(self):
+        return self.success_url

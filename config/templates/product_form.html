@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 <div class="container">
     <h1>{{ form_title }}</h1>
     <div class="card mb-4 box-shadow">
@@ -25,7 +26,7 @@
                     <label for="id_name" class="form-label">Название продукта</label>
                     {{ form.name }}
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 form-field">
                     <label for="id_price" class="form-label">Цена</label>
                     {{ form.price }}
                 </div>

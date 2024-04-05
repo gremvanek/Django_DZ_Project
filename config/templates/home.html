@@ -18,11 +18,11 @@
                         Подробней</a>
                     <h4 class="my-4 font-weight-normal">
                     {% if product.active_version %}
-                    <a>Текущая версия: {{ product.active_version.version_number }} ({{
-                        product.active_version.version_name }})</a>
-                    {% else %}
-                    <a>Нет активной версии</a>
-                    {% endif %}
+                        <a>Текущая версия: {{ product.active_version.version_number }} ({{
+                            product.active_version.version_name }})</a>
+                        {% else %}
+                        <a>Нет активной версии</a>
+                        {% endif %}
                     </h4>
                 </div>
             </div>

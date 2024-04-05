@@ -72,3 +72,11 @@ class Version(models.Model):
     version_number = models.CharField(max_length=50)
     version_name = models.CharField(max_length=100)
     is_current = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
+
+    @staticmethod
+    def get_absolute_url():
+        return reverse('version_list')

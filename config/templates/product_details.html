@@ -8,16 +8,16 @@
     <img src="{{ product.photo|image_tags }}" alt="{{ product.name }}" class="img-fluid">
     <p>{{ product.description }}</p>
     <p>Цена: {{ product.price }}</p>
+    <p>Версия: {{ product.version_number }}</p>
     <p>Категория: {{ product.category }}</p>
     <p>Количество просмотров: {{ product.views }}</p>
-    <h4 class="my-4 font-weight-normal">{% if product.active_version %}
-        <a>Текущая версия: {{ product.active_version.version_number }} ({{
-            product.active_version.version_name }})</a>
+    <h4 class="my-4 font-weight-normal">{% if active_version %}
+        <a>Текущая версия: {{ active_version.version_number }} ({{ active_version.version_name }})</a>
         {% else %}
         <a>Нет активной версии</a>
         {% endif %}
     </h4>
-    <a href="{% url 'product_update' product.pk %}" class="btn btn-primary">Редактировать</a>
-    <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+    <a href="{% url 'product_update' pk=product.pk %}" class="btn btn-primary">Редактировать</a>
+    <a href="{% url 'product_delete' pk=product.pk %}" class="btn btn-danger">Удалить</a>
 </div>
 {% endblock %}

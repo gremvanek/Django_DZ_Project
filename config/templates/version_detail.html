@@ -1,0 +1,11 @@
+<!--version_detail-->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Детали версии</h1>
+    <p>Номер версии: {{ version.version_number }}</p>
+    <p>Название версии: {{ version.version_name }}</p>
+    <p>Текущая версия: {{ version.is_current }}</p>
+</div>
+{% endblock %}
