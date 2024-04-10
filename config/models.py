@@ -1,14 +1,13 @@
-from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-NULLABLE = {'blank': True, 'null': True}
+from users.models import *
 
 
 class Category(models.Model):
     id = models.CharField(primary_key=True, max_length=100, verbose_name='Номер категории')
     name = models.CharField(max_length=100, verbose_name='Наименование')
-    description = models.TextField(**NULLABLE, verbose_name='Описание')
+    description = models.TextField(blank=True, null=True, verbose_name='Описание')
 
     def __str__(self):
         return f'{self.name}'
@@ -27,6 +26,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания', null=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения', null=True)
     views = models.IntegerField(default=0, verbose_name='Количество просмотров')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name} ({self.category})'

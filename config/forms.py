@@ -2,7 +2,6 @@ import re
 
 from django import forms
 from django.forms import BooleanField
-
 from config.models import Product, Version
 
 
