@@ -5,6 +5,7 @@
     <div class="row text-center">
         {% if object_list %}
         {% for product in object_list %}
+            {% if user.is_authenticated and user == product.owner %}
         <div class="col-3">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
@@ -26,6 +27,9 @@
                 </h4>
             </div>
         </div>
+            {% endif %}
+        {% empty %}
+        <p>Нет товаров.</p>
         {% endfor %}
         {% else %}
         <p>Нет товаров.</p>

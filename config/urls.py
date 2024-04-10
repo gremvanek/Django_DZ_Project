@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LoginView
 from django.urls import path
 
 from config.views import ContactView, PostCreateView, PostDetailView, PostUpdateView, \
@@ -15,6 +16,7 @@ urlpatterns = [
                   path('<slug:slug>/update/', PostUpdateView.as_view(), name='post_update'),
                   path('<slug:slug>/delete/', PostDeleteView.as_view(), name='post_delete'),
                   path('', ProductListView.as_view(), name='product_list'),
+                  path('accounts/login/', LoginView.as_view(), name='login'),
                   path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
                   path('product/create/', ProductCreateView.as_view(), name='product_create'),
                   path('product/<int:pk>/update/', ProductUpdateView.as_view(), name='product_update'),
