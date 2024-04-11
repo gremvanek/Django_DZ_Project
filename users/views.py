@@ -107,7 +107,7 @@ class CustomPasswordResetView(FormView):
             send_mail(
                 _('Password reset'),
                 _('Your new password is: {}').format(random_password),
-                'from@example.com',
+                'gremvanek@gmail.com',
                 [email],
                 fail_silently=False,
             )
