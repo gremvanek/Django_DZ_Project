@@ -93,15 +93,13 @@ class CustomPasswordResetView(FormView):
         # Генерация случайного пароля
         random_password = ''.join(
             random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=12))
-        # Хеширование пароля
-        hashed_password = make_password(random_password)
 
         # Получение адреса электронной почты из формы
         email = form.cleaned_data['email']
 
         # Обновление пароля пользователя с указанным адресом электронной почты
         for user in form.get_users(email):
-            user.set_password(hashed_password)
+            user.set_password(random_password)
             user.save()
 
             # Отправка нового пароля на адрес электронной почты пользователя
