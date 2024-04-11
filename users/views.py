@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.forms import default_token_generator as token_generator
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.views import LoginView
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -114,3 +115,17 @@ class CustomPasswordResetView(FormView):
 
         # После успешного сброса пароля происходит редирект на страницу входа
         return super().form_valid(form)
+
+
+class CustomLoginView(LoginView):
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        user = form.get_user()
+        if user.email_verified:
+            return super().form_valid(form)
+        else:
+            messages.error(self.request,
+                           "Ваш email не подтвержден. Пожалуйста, проверьте почту и "
+                           "перейдите по ссылке для подтверждения.")
+            return redirect('users:login')
