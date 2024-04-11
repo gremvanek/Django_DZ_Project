@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.forms import default_token_generator as token_generator
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.views import LoginView
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -92,25 +93,37 @@ class CustomPasswordResetView(FormView):
         # Генерация случайного пароля
         random_password = ''.join(
             random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=12))
-        # Хеширование пароля
-        hashed_password = make_password(random_password)
 
         # Получение адреса электронной почты из формы
         email = form.cleaned_data['email']
 
         # Обновление пароля пользователя с указанным адресом электронной почты
         for user in form.get_users(email):
-            user.set_password(hashed_password)
+            user.set_password(random_password)
             user.save()
 
             # Отправка нового пароля на адрес электронной почты пользователя
             send_mail(
                 _('Password reset'),
                 _('Your new password is: {}').format(random_password),
-                'from@example.com',
+                'gremvanek@gmail.com',
                 [email],
                 fail_silently=False,
             )
 
         # После успешного сброса пароля происходит редирект на страницу входа
         return super().form_valid(form)
+
+
+class CustomLoginView(LoginView):
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        user = form.get_user()
+        if user.email_verified:
+            return super().form_valid(form)
+        else:
+            messages.error(self.request,
+                           "Ваш email не подтвержден. Пожалуйста, проверьте почту и "
+                           "перейдите по ссылке для подтверждения.")
+            return redirect('users:login')

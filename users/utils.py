@@ -18,6 +18,7 @@ def send_email_for_verify(request, user):
     email = EmailMessage(
         'Verify email',
         message,
+        from_email='gremvanek@gmail.com',
         to=[user.email],
     )
     email.send()
