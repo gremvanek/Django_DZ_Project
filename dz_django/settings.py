@@ -137,6 +137,6 @@ EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Замените на ваш SMTP-сервер
 EMAIL_PORT = 465  # Порт для TLS (обычно 587)
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'gremvanek@gmail.com'
-EMAIL_HOST_PASSWORD = 'bvxo daim ilij zgbm'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
