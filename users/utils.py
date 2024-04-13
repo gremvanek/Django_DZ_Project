@@ -5,6 +5,8 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
+from dz_django import settings
+
 
 def send_email_for_verify(request, user):
     current_site = get_current_site(request)
@@ -18,7 +20,7 @@ def send_email_for_verify(request, user):
     email = EmailMessage(
         'Verify email',
         message,
-        from_email='gremvanek@gmail.com',
+        from_email=settings.EMAIL_HOST_USER,
         to=[user.email],
     )
     email.send()
