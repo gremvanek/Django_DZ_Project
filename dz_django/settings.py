@@ -135,8 +135,8 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'users/'
 
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Замените на ваш SMTP-сервер
-EMAIL_PORT = 465  # Порт для TLS (обычно 587)
+EMAIL_HOST = 'smtp.gmail.com'  # Р—Р°РјРµРЅРёС‚Рµ РЅР° РІР°С€ SMTP-СЃРµСЂРІРµСЂ
+EMAIL_PORT = 465  # РџРѕСЂС‚ РґР»СЏ TLS (РѕР±С‹С‡РЅРѕ 587)
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
