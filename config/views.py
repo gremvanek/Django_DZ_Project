@@ -2,6 +2,7 @@ import random
 import string
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -164,6 +165,15 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProductForm
     template_name = 'product_form.html'
     success_url = reverse_lazy('product_list')
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        if obj.owner != self.request.user:
+            raise PermissionDenied
+        return obj
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):

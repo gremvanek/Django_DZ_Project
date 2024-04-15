@@ -21,8 +21,10 @@
 <!--        <a>Нет активной версии</a>-->
 <!--        {% endif %}-->
 <!--    </h4>-->
+    {% if object.owner == user %}
     <a href="{% url 'product_update' pk=product.pk %}" class="btn btn-primary">Редактировать</a>
     <a href="{% url 'product_delete' pk=product.pk %}" class="btn btn-danger">Удалить</a>
+    {% endif %}
 </div>
 <div class="pt-4 my-md-5 pt-md-5 border-top">{% include 'base_contacts.html' %}</div>
 {% endblock %}
