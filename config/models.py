@@ -27,6 +27,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения', null=True)
     views = models.IntegerField(default=0, verbose_name='Количество просмотров')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
 
     def __str__(self):
         return f'{self.name} ({self.category})'
