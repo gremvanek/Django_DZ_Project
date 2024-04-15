@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = 'Назначение пользователя модератором'
+    help = 'РќР°Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РјРѕРґРµСЂР°С‚РѕСЂРѕРј'
 
     def add_arguments(self, parser):
         parser.add_argument('email', type=str, help='Email address')
@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         email = kwargs['email']
         user = User.objects.get(email=email)
-        group = Group.objects.get(name='Модераторы')
+        group = Group.objects.get(name='РњРѕРґРµСЂР°С‚РѕСЂС‹')
         user.groups.add(group)
         user.save()
-        self.stdout.write(self.style.SUCCESS(f"Пользователь {user.email} теперь в группе модераторов"))
+        self.stdout.write(self.style.SUCCESS(f"РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ {user.email} РЅР°Р·РЅР°С‡РµРЅ РІ РіСЂСѓРїРїСѓ РјРѕРґРµСЂР°С‚РѕСЂРѕРІ!"))
