@@ -9,7 +9,7 @@ from .models import Product
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.is_moderator:
         group = Group.objects.get(name='Модераторы')
         instance.groups.add(group)
 
