@@ -134,9 +134,20 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Замените на ваш SMTP-сервер
-EMAIL_PORT = 465  # Порт для TLS (обычно 587)
+EMAIL_HOST = 'smtp.gmail.com'  # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ SMTP-пїЅпїЅпїЅпїЅпїЅпїЅ
+EMAIL_PORT = 465  # пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ TLS (пїЅпїЅпїЅпїЅпїЅпїЅ 587)
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'gremvanek@gmail.com'
 EMAIL_HOST_PASSWORD = 'bvxo daim ilij zgbm'
 
+CACHE_ENABLED = True
+if CACHE_ENABLED:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }

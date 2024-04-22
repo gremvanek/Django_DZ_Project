@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from config.views import ContactView, PostCreateView, PostDetailView, PostUpdateView, \
     PostDeleteView, PostListView, ProductCreateView, ProductDetailView, ProductUpdateView, ProductDeleteView, \
@@ -17,7 +18,7 @@ urlpatterns = [
                   path('<slug:slug>/delete/', PostDeleteView.as_view(), name='post_delete'),
                   path('', ProductListView.as_view(), name='product_list'),
                   path('accounts/login/', LoginView.as_view(), name='login'),
-                  path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
+                  path('product/<int:pk>/', cache_page(60 * 15)(ProductDetailView.as_view()), name='product_detail'),
                   path('product/create/', ProductCreateView.as_view(), name='product_create'),
                   path('product/<int:pk>/update/', ProductUpdateView.as_view(), name='product_update'),
                   path('product/<int:pk>/delete/', ProductDeleteView.as_view(), name='product_delete'),
