@@ -5,6 +5,7 @@ from users.models import *
 
 
 class Category(models.Model):
+    objects = models.Manager()
     id = models.CharField(primary_key=True, max_length=100, verbose_name='Номер категории')
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(blank=True, null=True, verbose_name='Описание')
