@@ -8,9 +8,9 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
 from django.utils.translation import gettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 from django.views import View
 from django.views.generic import FormView, CreateView, UpdateView
 
@@ -36,7 +36,7 @@ class RegisterView(CreateView):
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
-            user = form.save()  # Сохраняем объект пользователя
+            # user = form.save()  # Сохраняем объект пользователя
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             user = authenticate(email=email, password=password)
@@ -64,22 +64,22 @@ class EmailVerifyView(View):
     @staticmethod
     def get(request, uidb64, token):
         try:
-            # Декодируем uid и получаем пользователя
-            uid = force_text(urlsafe_base64_decode(uidb64))
+            # Decode uid and get the user
+            uid = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
 
-        # Проверяем токен и пользователя
+        # Check token and user
         if user is not None and token_generator.check_token(user, token):
-            # Устанавливаем email_verified в True
+            # Set email_verified to True
             user.email_verified = True
             user.save()
-            messages.success(request, "Ваш email успешно подтвержден")
+            messages.success(request, "Your email has been successfully verified")
             return redirect('users:email_success')
 
-            # Если токен недействителен, выводим сообщение об ошибке
-        messages.error(request, "Ссылка для подтверждения недействительна или истекла")
+        # If the token is invalid, show an error message
+        messages.error(request, "The verification link is invalid or has expired")
         return redirect('users:email_fail')
 
 
