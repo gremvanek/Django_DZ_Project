@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.utils import timezone
 
-from users.models import *
+from users.models import models, User
 
 
 class Category(models.Model):
