@@ -9,3 +9,4 @@ dj-config-url~=0.1.1
 dj-database-url==2.1.0
 config~=0.5.1
 decouple~=0.0.7
+redis==5.0.3
