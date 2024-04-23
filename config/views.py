@@ -11,6 +11,7 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import ProductForm, VersionForm
+from config.services import get_categories
 from .models import Product, Post, Version
 
 
@@ -27,7 +28,8 @@ class ContactView(TemplateView):
         return render(request, self.template_name)
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        categories = get_categories()
+        return render(request, self.template_name, {'categories': categories})
 
 
 class PostView(TemplateView):
