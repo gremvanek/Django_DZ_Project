@@ -8,7 +8,7 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import ProductForm, VersionForm
-from .management.commands.services import get_categories
+from config.services import get_categories
 from .models import Product, Post, Version
 
 
